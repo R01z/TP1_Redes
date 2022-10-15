@@ -19,7 +19,7 @@ void logexit(const char *msg){
 }
 
 int main(int argc, char **argv){
-    if(argc < 3) usage(); //Verificar chamada correta
+    if(argc < 3) usage(argc, argv); //Verificar chamada correta
 
     int count=0;
 
@@ -29,7 +29,11 @@ int main(int argc, char **argv){
     if(s == -1) logexit("socket");
 
     //Chamada do connect
-    if(connect(s, addr, sizeof(addr)) != 0) logexit("connect");
+    struct sockaddr_storage storage;
+    if(addrparse(argv[1], argv[2], &storage) !=0) usage(argc, argv);
+
+    struct sockaddr *addr = (struct sockaddr *)(&storage);
+    if(connect(s, addr, sizeof(storage)) != 0) logexit("connect");
 
     //Imprimir endereço conectado
     char addrstr[BUFSZ];
