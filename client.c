@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -13,11 +14,6 @@
 
 void usage(int argc, char **argv){
     printf("ERRO NA CHAMADA\n");
-    exit(EXIT_FAILURE);
-}
-
-void logexit(const char *msg){
-    perror(msg);
     exit(EXIT_FAILURE);
 }
 

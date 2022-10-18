@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -43,8 +44,9 @@ int main(int argc, char **argv){
     char caddrstr[BUFSZ];
     struct sockaddr_storage cstorage;
     struct sockaddr *caddr = (struct sockaddr *)(&cstorage);
+    socklen_t caddrlen = sizeof(cstorage);
 
-    int csock = accept(s, caddr, sizeof(cstorage));
+    int csock = accept(s, caddr, &caddrlen);
     if(csock == -1) logexit("accept");
 
     addrtostr(caddr, caddrstr, BUFSZ);

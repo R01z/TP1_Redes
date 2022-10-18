@@ -1,8 +1,14 @@
 #include <inttypes.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <arpa/inet.h>
+
+void logexit(const char *msg){
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
 
 int addrparse(const char *addrstr, const char *portstr, struct sockaddr_storage *storage){
     if(addrstr == NULL || portstr == NULL) return -1;
@@ -26,7 +32,7 @@ int addrparse(const char *addrstr, const char *portstr, struct sockaddr_storage 
         struct sockaddr_in6 *addr6 = (struct sockaddr_in6 *)storage;
         addr6->sin6_family = AF_INET6;
         addr6->sin6_port = port;
-        memcpy(&(addr6->sin6_addr), inaddr6, sizeof(inaddr6));
+        memcpy(&(addr6->sin6_addr), &inaddr6, sizeof(inaddr6));
         return 0;
     }
 
