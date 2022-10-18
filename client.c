@@ -4,6 +4,7 @@
 
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 //Windows não possui "sys/socket.h", esse programa rodará apenas no linux
 
 #define BUFSZ 1024
@@ -21,16 +22,16 @@ void logexit(const char *msg){
 int main(int argc, char **argv){
     if(argc < 3) usage(argc, argv); //Verificar chamada correta
 
-    int count=0;
-
-    //Criar Socket
-    int s;
-    s = socket(AF_INET, SOCK_STREAM, 0);
-    if(s == -1) logexit("socket");
+    size_t count=0;
 
     //Chamada do connect
     struct sockaddr_storage storage;
     if(addrparse(argv[1], argv[2], &storage) !=0) usage(argc, argv);
+
+    //Criar Socket
+    int s;
+    s = socket(storage.ss_family, SOCK_STREAM, 0);
+    if(s == -1) logexit("socket");
 
     struct sockaddr *addr = (struct sockaddr *)(&storage);
     if(connect(s, addr, sizeof(storage)) != 0) logexit("connect");
@@ -38,7 +39,7 @@ int main(int argc, char **argv){
     //Imprimir endereço conectado
     char addrstr[BUFSZ];
     addrtostr(addr, addrstr, BUFSZ);
-    printf("Conectado a %s\n");
+    printf("Conectado a %s\n", addrstr);
 
     //Comunicação cliente-servidor
     char buf[BUFSZ];
@@ -62,7 +63,7 @@ int main(int argc, char **argv){
         puts(buf);
 
         //Encerra conexão
-        if(strncmp(buf,"Conexao Encerrada", 17)) break;;
+        if(strncmp(buf,"Conexao Encerrada", 17)) break;
     }
 
     close(s);
