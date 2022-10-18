@@ -13,7 +13,7 @@ void logexit(const char *msg){
 int addrparse(const char *addrstr, const char *portstr, struct sockaddr_storage *storage){
     if(addrstr == NULL || portstr == NULL) return -1;
 
-    uint16_t port = (unit16_t)atoi(portstr); //unsigned short
+    uint16_t port = (uint16_t)atoi(portstr); //unsigned short
     if(port == 0) return -1;
 
     port = htons(port); //host to network short
@@ -47,31 +47,31 @@ void addrtostr(const struct sockaddr *addr, char *str, size_t strsize){
     if(addr->sa_family == AF_INET){
         versao = 4;
         struct sockaddr_in *addr4 = (struct sockaddr_in *)addr;
-        if(!inet_ntop(AF_INET, &(addr4->sin_addr), addrstr, INET6_ADDRSRTLEN+1))
+        if(!inet_ntop(AF_INET, &(addr4->sin_addr), addrstr, INET6_ADDRSTRLEN+1))
             logexit("ntop");
         port = ntohs(addr4->sin_port);
     }
     else if(addr->sa_family == AF_INET6){
         versao = 6;
         struct sockaddr_in6 *addr6 = (struct sockaddr_in6 *)addr;
-        if(!inet_ntop(AF_INET, &(addr6->sin6_addr), addrstr, INET6_ADDRSRTLEN+1))
+        if(!inet_ntop(AF_INET, &(addr6->sin6_addr), addrstr, INET6_ADDRSTRLEN+1))
             logexit("ntop");
         port = ntohs(addr6->sin6_port);
     }
     else logexit("Protocolo desconhecido\n");
     if(str)
-        snprintf(str, strsize "IPv%d %s %hu", versao, addrstr, port);
+        snprintf(str, strsize ("IPv%d %s %hu"), versao, addrstr, port);
 }
 
 int server_sockaddr_init(const char *proto, const char* portstr,
                         struct sockadd_storage *storage)
 {
-    uint16_t port = (unit16_t)atoi(portstr); //unsigned short
+    uint16_t port = (uint16_t)atoi(portstr); //unsigned short
     if(port == 0) return -1;
 
     port = htons(port); //host to network short
 
-    memset(storage, 0, sizeof(*storage));
+    memset(storage, 0, sizeof(storage));
     if(strcmp(proto, "v4") == 0){
         struct sockaddr_in *addr4 = (struct sockaddr_in *)storage;
         addr4->sin_family = AF_INET;
