@@ -60,7 +60,7 @@ void addrtostr(const struct sockaddr *addr, char *str, size_t strsize){
     }
     else logexit("Protocolo desconhecido\n");
     if(str)
-        snprintf(str, strsize ("IPv%d %s %hu"), versao, addrstr, port);
+        snprintf(str, strsize, "IPv%d %s %hu", versao, addrstr, port);
 }
 
 int server_sockaddr_init(const char *proto, const char* portstr,
