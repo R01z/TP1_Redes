@@ -44,12 +44,11 @@ int main(int argc, char **argv){
     unsigned total = 0;
     while(1){
         memset(buf, 0, BUFSZ);
-        printf("Cliente > ");
+        printf("[msg]Cliente > ");
         fgets(buf, BUFSZ-1, stdin);
         count = send(s, buf, strlen(buf)+1, 0);
         printf("[debug] mensagem enviada pra servidor\n");
-        //if(count != strlen(buf)+1) logexit("send");
-        printf("Server > ");
+        if(count != strlen(buf)+1) logexit("send");
 
         //Loop para receber a mensagem
         while(1){
@@ -60,13 +59,14 @@ int main(int argc, char **argv){
             total += count;
         }
         total = 0;
-        printf("%s",buf);
+        printf("[msg]Server > %s",buf);
 
         //Encerra conexão
         if(strncmp(buf,"Conexao Encerrada", 17) == 0){
             printf("[debug] if encerra conexão do cliente\n");
             break;
         }
+        printf("[debug] voltar ao começo do while\n");
     }
 
     printf("[log] Conexão Encerrada\n");

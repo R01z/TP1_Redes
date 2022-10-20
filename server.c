@@ -53,7 +53,7 @@ int main(int argc, char **argv){
     printf("[log]Conexão de %s\n", caddrstr);
 
     while(1){
-        printf("Cliente > ");
+        printf("[msg]Cliente > ");
         memset(buf, 0, BUFSZ);
         count = recv(csock, buf, BUFSZ, 0);
         printf("%s", buf);
@@ -65,10 +65,11 @@ int main(int argc, char **argv){
         }
 
         sprintf(buf, "Mesagem recebida\n");
-        printf("[debug] enviando resposta para cliente\n");
+        printf("[msg]Servidor > %s", buf);
         count = send(csock, buf, strlen(buf)+1, 0);
         printf("[debug] após o send\n");
         if(count != strlen(buf)+1) logexit("send");
+        printf("[debug] voltar ao começo do while\n");
     }
 
     sprintf(buf, "Conexão Encerrada\n");
