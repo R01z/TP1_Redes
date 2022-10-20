@@ -67,7 +67,8 @@ int main(int argc, char **argv){
         sprintf(buf, "Mesagem recebida\n");
         printf("[debug] enviando resposta para cliente\n");
         count = send(csock, buf, strlen(buf)+1, 0);
-        if(count != strlen(buf)+1) logexit("send");
+        printf("[debug] após o send\n");
+        //if(count != strlen(buf)+1) logexit("send");
     }
 
     sprintf(buf, "Conexão Encerrada\n");
