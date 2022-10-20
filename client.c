@@ -53,7 +53,7 @@ int main(int argc, char **argv){
         total = 0;
         //Loop para receber a mensagem
         //while(1){
-            count = recv(s, buf + total, BUFSZ - total, 0);
+        count = recv(s, buf + total, BUFSZ - total, 0);
             //Caso Mensagem encerrada
             //if(count == 0) break;
 
@@ -66,7 +66,6 @@ int main(int argc, char **argv){
             printf("[debug] if encerra conexão do cliente\n");
             break;
         }
-        printf("[debug] voltar ao começo do while\n");
     }
 
     printf("[log] Conexão Encerrada\n");

@@ -58,7 +58,7 @@ int main(int argc, char **argv){
         printf("[msg]Cliente > %s", buf);
         
         //Encerra conexão
-        if(strcmp(buf,"Exit") == 0) {
+        if(strcmp(buf,"Exit\n") == 0) {
             printf("[debug] if encerra conexão do servidor\n");
             break;
         }
