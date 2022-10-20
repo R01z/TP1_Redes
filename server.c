@@ -70,7 +70,7 @@ int main(int argc, char **argv){
         if(count != strlen(buf)+1) logexit("send");
     }
 
-    sprintf(buf, "Conexão Encerrada\n");
+    sprintf(buf, "Conexao Encerrada\n");
     printf(buf);
     send(csock, buf, strlen(buf)+1, 0);
     close(csock);
