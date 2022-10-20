@@ -43,7 +43,6 @@ int main(int argc, char **argv){
     char buf[BUFSZ];
     unsigned total = 0;
     while(1){
-        total = 0;
         memset(buf, 0, BUFSZ);
         printf("[msg]Cliente > ");
         fgets(buf, BUFSZ-1, stdin);
@@ -52,6 +51,7 @@ int main(int argc, char **argv){
         if(count != strlen(buf)+1) logexit("send");
 
         memset(buf, 0, BUFSZ);
+        total = 0;
         //Loop para receber a mensagem
         while(1){
             count = recv(s, buf + total, BUFSZ - total, 0);
