@@ -58,7 +58,10 @@ int main(int argc, char **argv){
         printf("Cliente %s > %s\n", caddrstr,buf);
         
         //Encerra conexão
-        if(strcmp(buf,"Exit")) break;
+        if(strcmp(buf,"Exit")) {
+            printf("[debug] if encerra conexão do servidor\n");
+            break;
+        }
         else{
             sprintf(buf, "Mesagem recebida\n");
             count = send(csock, buf, strlen(buf)+1, 0);
@@ -66,7 +69,8 @@ int main(int argc, char **argv){
         }
     }
 
-    sprintf(buf, "Conexão encerrada\n");
+    sprintf(buf, "Conexão Encerrada\n");
+    printf(buf);
     send(csock, buf, strlen(buf)+1, 0);
     close(csock);
 
