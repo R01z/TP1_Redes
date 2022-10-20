@@ -47,19 +47,18 @@ int main(int argc, char **argv){
         printf("[msg]Cliente > ");
         fgets(buf, BUFSZ-1, stdin);
         count = send(s, buf, strlen(buf)+1, 0);
-        printf("[debug] mensagem enviada pra servidor\n");
         if(count != strlen(buf)+1) logexit("send");
 
         memset(buf, 0, BUFSZ);
         total = 0;
         //Loop para receber a mensagem
-        while(1){
+        //while(1){
             count = recv(s, buf + total, BUFSZ - total, 0);
             //Caso Mensagem encerrada
-            if(count == 0) break;
+            //if(count == 0) break;
 
-            total += count;
-        }
+            //total += count;
+        //}
         printf("[msg]Server > %s",buf);
 
         //Encerra conexão

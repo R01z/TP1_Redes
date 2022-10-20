@@ -54,9 +54,8 @@ int main(int argc, char **argv){
 
     while(1){
         memset(buf, 0, BUFSZ);
-        printf("[msg]Cliente > ");
         count = recv(csock, buf, BUFSZ, 0);
-        printf("%s", buf);
+        printf("[msg]Cliente > %s", buf);
         
         //Encerra conexão
         if(strcmp(buf,"Exit") == 0) {
