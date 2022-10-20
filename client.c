@@ -47,6 +47,7 @@ int main(int argc, char **argv){
         printf("Cliente > ");
         fgets(buf, BUFSZ-1, stdin);
         count = send(s, buf, strlen(buf)+1, 0);
+        printf("[debug] mensagem enviada pra servidor\n");
         //if(count != strlen(buf)+1) logexit("send");
         printf("Server > ");
 
