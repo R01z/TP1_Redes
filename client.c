@@ -61,7 +61,7 @@ int main(int argc, char **argv){
         printf("Server > %s",buf);
 
         //Encerra conexão
-        if(strncmp(buf,"Conexao Encerrada", 17)){
+        if(strncmp(buf,"Conexao Encerrada", 17) == 0){
             printf("[debug] if encerra conexão do cliente\n");
             break;
         }
