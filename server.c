@@ -59,7 +59,6 @@ int main(int argc, char **argv){
         
         //Encerra conexão
         if(strcmp(buf,"Exit\n") == 0) {
-            printf("[debug] if encerra conexão do servidor\n");
             break;
         }
 
@@ -71,7 +70,7 @@ int main(int argc, char **argv){
     }
 
     sprintf(buf, "Conexao Encerrada\n");
-    printf(buf);
+    printf("[log]%s",buf);
     send(csock, buf, strlen(buf)+1, 0);
     close(csock);
 
