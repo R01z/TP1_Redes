@@ -55,14 +55,15 @@ int main(int argc, char **argv){
     while(1){
         memset(buf, 0, BUFSZ);
         count = recv(csock, buf, BUFSZ, 0);
-        printf("[msg] %s: %s\n", caddrstr,buf);
+        printf("Cliente %s > %s\n", caddrstr,buf);
         
         //Encerra conexão
-        if(strncmp(buf,"Exit", 4)) break;
-
-        sprintf(buf, "Mesagem recebida\n");
-        count = send(csock, buf, strlen(buf)+1, 0);
-        if(count != strlen(buf)+1) logexit("send");
+        if(strcmp(buf,"Exit")) break;
+        else{
+            sprintf(buf, "Mesagem recebida\n");
+            count = send(csock, buf, strlen(buf)+1, 0);
+            if(count != strlen(buf)+1) logexit("send");
+        }
     }
 
     sprintf(buf, "Conexão encerrada\n");

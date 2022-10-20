@@ -58,7 +58,7 @@ int main(int argc, char **argv){
             total += count;
         }
         total = 0;
-        puts(buf);
+        printf("Server > %s",buf);
 
         //Encerra conexão
         if(strncmp(buf,"Conexao Encerrada", 17)) break;
