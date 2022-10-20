@@ -38,7 +38,7 @@ int main(int argc, char **argv){
 
     char addrstr[BUFSZ];
     addrtostr(addr, addrstr, BUFSZ);
-    printf("Conectado a %s\n", addrstr);
+    printf("[log]Conectado a %s\n", addrstr);
     
 
     char caddrstr[BUFSZ];
@@ -53,20 +53,21 @@ int main(int argc, char **argv){
     printf("[log]Conexão de %s\n", caddrstr);
 
     while(1){
+        printf("Cliente > ");
         memset(buf, 0, BUFSZ);
         count = recv(csock, buf, BUFSZ, 0);
-        printf("Cliente %s > %s\n", caddrstr,buf);
+        printf("%s", buf);
         
         //Encerra conexão
         if(strcmp(buf,"Exit") == 0) {
             printf("[debug] if encerra conexão do servidor\n");
             break;
         }
-        else{
-            sprintf(buf, "Mesagem recebida\n");
-            count = send(csock, buf, strlen(buf)+1, 0);
-            if(count != strlen(buf)+1) logexit("send");
-        }
+
+        sprintf(buf, "Mesagem recebida\n");
+        printf("[debug] enviando resposta para cliente\n");
+        count = send(csock, buf, strlen(buf)+1, 0);
+        if(count != strlen(buf)+1) logexit("send");
     }
 
     sprintf(buf, "Conexão Encerrada\n");

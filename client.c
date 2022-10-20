@@ -37,7 +37,7 @@ int main(int argc, char **argv){
     //Imprimir endereço conectado
     char addrstr[BUFSZ];
     addrtostr(addr, addrstr, BUFSZ);
-    printf("Conectado a %s\n", addrstr);
+    printf("[log]Conectado a %s\n", addrstr);
 
     //Comunicação cliente-servidor
     char buf[BUFSZ];
@@ -48,6 +48,7 @@ int main(int argc, char **argv){
         fgets(buf, BUFSZ-1, stdin);
         count = send(s, buf, strlen(buf)+1, 0);
         if(count != strlen(buf)+1) logexit("send");
+        printf("Server > ");
 
         //Loop para receber a mensagem
         while(1){
@@ -58,7 +59,7 @@ int main(int argc, char **argv){
             total += count;
         }
         total = 0;
-        printf("Server > %s",buf);
+        printf("%s",buf);
 
         //Encerra conexão
         if(strncmp(buf,"Conexao Encerrada", 17) == 0){
