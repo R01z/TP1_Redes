@@ -18,35 +18,34 @@ void usage(int argc, char **argv){
 }
 
 int main(int argc, char **argv){
-    if(argc < 3) usage(argc, argv); //Verificar chamada correta
+    if (argc < 3) {
+		usage(argc, argv);
+	}
 
-    size_t count=0;
+	struct sockaddr_storage storage;
+	if (0 != addrparse(argv[1], argv[2], &storage)) {
+		usage(argc, argv);
+	}
 
-    //Chamada do connect
-    struct sockaddr_storage storage;
-    if(addrparse(argv[1], argv[2], &storage) !=0) usage(argc, argv);
-    printf("[debug]Chamada do connect\n");
-
-    //Criar Socket
-    int s;
-    s = socket(storage.ss_family, SOCK_STREAM, 0);
-    if(s == -1) logexit("socket");
-    printf("[debug]Criação do socket\n");
-
-    struct sockaddr *addr = (struct sockaddr *)(&storage);
+	int s;
+	s = socket(storage.ss_family, SOCK_STREAM, 0);
+	if (s == -1) {
+		logexit("socket");
+	}
+	struct sockaddr *addr = (struct sockaddr *)(&storage);
 	if (0 != connect(s, addr, sizeof(storage))) {
 		logexit("connect");
 	}
-    printf("[debug]Conexão\n");
 
-    //Imprimir endereço conectado
-    char addrstr[BUFSZ];
-    addrtostr(addr, addrstr, BUFSZ);
-    printf("[log]Conectado a %s\n", addrstr);
+	char addrstr[BUFSZ];
+	addrtostr(addr, addrstr, BUFSZ);
+
+	printf("connected to %s\n", addrstr);
 
     //Comunicação cliente-servidor
     char buf[BUFSZ];
     unsigned total = 0;
+    size_t count = 0;
     while(1){
         memset(buf, 0, BUFSZ);
         printf("[msg]Cliente > ");
