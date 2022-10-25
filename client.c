@@ -25,14 +25,17 @@ int main(int argc, char **argv){
     //Chamada do connect
     struct sockaddr_storage storage;
     if(addrparse(argv[1], argv[2], &storage) !=0) usage(argc, argv);
+    printf("[debug]Chamada do connect\n");
 
     //Criar Socket
     int s;
     s = socket(storage.ss_family, SOCK_STREAM, 0);
     if(s == -1) logexit("socket");
+    printf("[debug]Criação do socket\n");
 
     struct sockaddr *addr = (struct sockaddr *)(&storage);
     if(connect(s, addr, sizeof(storage)) != 0) logexit("connect");
+    printf("[debug]Conexão\n");
 
     //Imprimir endereço conectado
     char addrstr[BUFSZ];

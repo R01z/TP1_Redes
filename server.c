@@ -43,7 +43,7 @@ int main(int argc, char **argv){
 
     char addrstr[BUFSZ];
     addrtostr(addr, addrstr, BUFSZ);
-    printf("[log]Conectado a %s\n", addrstr);
+    printf("[log]Conectado a %s, aguardando conexões\n", addrstr);
     
 
     char caddrstr[BUFSZ];
