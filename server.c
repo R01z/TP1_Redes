@@ -9,6 +9,57 @@
 #include <sys/socket.h>
 
 #define BUFSZ 1024
+#define RACKS 4
+#define SWITCHS 3
+
+//Switchs
+struct sw
+{
+    char tipo[2];
+};
+
+//Racks
+struct sw racks[RACKS][SWITCHS];
+
+void execComando(const char* buf){
+    int i = 0;
+    char comando[4]; //Obtem o comando
+
+    printf("[DEBUG] dentro do exec\n");
+
+    while(buf[i] != ' '){
+        comando[i] = buf[i];
+        i++;
+    }
+
+    printf("[DEBUG] Comando inicial obtido\n");
+
+    if(strcmp(comando,"add") == 0){
+        //Instalar 
+        memset(buf, 0, BUFSZ);
+        sprintf(buf, "Instalar switch\n");
+    }
+    else if(strcmp(comando,"rm") == 0){
+        //Desinstalar
+        memset(buf, 0, BUFSZ);
+        sprintf(buf, "Desinstalar Switch\n");
+    }
+    else if(strcmp(comando,"get") == 0){
+        //Ler dados de Switch
+        memset(buf, 0, BUFSZ);
+        sprintf(buf, "Obter dados do switch\n");
+    }
+    else if(strcmp(comando,"ls") == 0){
+        //Listar switchs em rack
+        memset(buf, 0, BUFSZ);
+        sprintf(buf, "Listar switchs\n");
+    }
+    else{
+        //Nenhum comando identificado
+        memset(buf, 0, BUFSZ);
+        sprintf(buf, "Comando não reconhecido\n");
+    }
+}
 
 void usage(int argc, char **argv){
     printf("usage\n");
@@ -67,8 +118,8 @@ int main(int argc, char **argv){
             break;
         }
 
-        memset(buf, 0, BUFSZ);
-        sprintf(buf, "Mesagem recebida\n");
+        execComando(buf);
+
         printf("[msg]Servidor > %s", buf);
         count = send(csock, buf, strlen(buf)+1, 0);
         if(count != strlen(buf)+1) logexit("send");
