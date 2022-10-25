@@ -71,7 +71,7 @@ int server_sockaddr_init(const char *proto, const char* portstr,
 
     port = htons(port); //host to network short
 
-    memset(storage, 0, sizeof(*storage));
+    memset(storage, 0, sizeof(storage));
     if(strcmp(proto, "v4") == 0){
         struct sockaddr_in *addr4 = (struct sockaddr_in *)storage;
         addr4->sin_family = AF_INET;
