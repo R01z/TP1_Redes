@@ -31,6 +31,11 @@ int main(int argc, char **argv){
     s = socket(storage.ss_family, SOCK_STREAM, 0);
     if(s == -1) logexit("socket");
 
+    int enable = 1;
+    if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) != 0) {
+        logexit("setsockopt");
+    }
+
     struct sockaddr *addr = (struct sockaddr *)(&storage);
     if(bind(s, addr, sizeof(storage))!=0) logexit("bind");
 
