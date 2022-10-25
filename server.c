@@ -23,16 +23,14 @@ struct sw racks[RACKS][SWITCHS];
 
 void execComando(const char* buf){
     int i = 0;
-    char comando[4]; //Obtem o comando
-
-    printf("[DEBUG] dentro do exec\n");
+    char comando[3]; //Obtem o comando
 
     while(buf[i] != ' '){
         comando[i] = buf[i];
         i++;
     }
 
-    printf("[DEBUG] Comando inicial obtido\n");
+    printf("[DEBUG] Comando obtido = %s\n", comando);
 
     if(strcmp(comando,"add") == 0){
         //Instalar 
