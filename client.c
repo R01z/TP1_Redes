@@ -34,7 +34,9 @@ int main(int argc, char **argv){
     printf("[debug]Criação do socket\n");
 
     struct sockaddr *addr = (struct sockaddr *)(&storage);
-    if(connect(s, addr, sizeof(storage)) != 0) logexit("connect");
+	if (0 != connect(s, addr, sizeof(storage))) {
+		logexit("connect");
+	}
     printf("[debug]Conexão\n");
 
     //Imprimir endereço conectado
