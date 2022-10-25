@@ -23,7 +23,8 @@ struct sw racks[RACKS][SWITCHS];
 
 void execComando(const char* buf){
     int i = 0;
-    char comando[3]; //Obtem o comando
+    char comando[3] = ''; //Obtem o comando
+    memset(comando, 0, 3);
 
     while(buf[i] != ' '){
         comando[i] = buf[i];
