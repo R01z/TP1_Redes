@@ -51,18 +51,14 @@ int main(int argc, char **argv){
 
         memset(buf, 0, BUFSZ);
         total = 0;
-        //Loop para receber a mensagem
-        //while(1){
+        
+        //Receber mensagem
         count = recv(s, buf + total, BUFSZ - total, 0);
-            //Caso Mensagem encerrada
-            //if(count == 0) break;
-
-            //total += count;
-        //}
+        
         printf("[msg]Server > %s",buf);
 
         //Encerra conexão
-        if(strncmp(buf,"Conexao Encerrada", 17) == 0){
+        if(strncmp(buf,"Conexao Encerrada", 17) == 0 || strncmp(buf,"unknow", 6) == 0){
             break;
         }
     }
